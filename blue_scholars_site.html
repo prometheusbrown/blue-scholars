@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLUE SCHOLARS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #000000;
+            --hover: #333333;
+        }
+
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --border: #ffffff;
+            --hover: #cccccc;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--hover);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .hero {
+            margin-bottom: 60px;
+        }
+
+        .hero img {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto 30px;
+            border: 1px solid var(--border);
+        }
+
+        .hero-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .members {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .members a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+        }
+
+        .members a:hover {
+            border-bottom: 2px solid var(--text);
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product {
+            border: 1px solid var(--border);
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+
+        .product:hover {
+            transform: translateY(-2px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: var(--border);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            opacity: 0.3;
+        }
+
+        .product-name {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .product-btn {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-btn:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .bandcamp-embed {
+            margin: 30px 0;
+            border: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-top: 60px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .store-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BLUE SCHOLARS</h1>
+            <nav>
+                <a href="#music">MUSIC</a>
+                <a href="#store">STORE</a>
+                <a href="#about">ABOUT</a>
+                <button class="snipcart-checkout" style="background: none; border: 1px solid var(--border); color: var(--text); padding: 5px 10px; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 14px;">
+                    CART (<span class="snipcart-items-count">0</span>)
+                </button>
+                <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+            </nav>
+        </header>
+
+        <div class="hero">
+            <img src="https://images.squarespace-cdn.com/content/v1/51b8c20be4b0f1f8c9dcdf4c/67097db1-52bd-4c5f-bf72-5bf5f688d3ae/bsfrontpage.png" alt="Blue Scholars Logo" style="max-width: 500px;">
+            <div class="hero-text">
+                <p>Seattle hip-hop duo</p>
+            </div>
+            <div class="members">
+                <a href="http://prometheusbrown.wtf" target="_blank">Prometheus Brown fka Geologic</a>
+                <a href="https://sabzi.bandcamp.com" target="_blank">Sabzi</a>
+            </div>
+        </div>
+
+        <section id="music">
+            <h2>/ MUSIC</h2>
+            <div class="bandcamp-embed">
+                <p style="margin-bottom: 15px;">Listen to our music on streaming platforms:</p>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <a href="https://open.spotify.com/artist/YOUR_SPOTIFY_ID" target="_blank" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Spotify →</a>
+                    <a href="https://music.apple.com/artist/YOUR_APPLE_ID" target="_blank" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Apple Music →</a>
+                    <a href="https://www.youtube.com/YOUR_YOUTUBE" target="_blank" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 5px;">YouTube →</a>
+                    <a href="https://bluescholars.bandcamp.com" target="_blank" style="color: var(--text); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 5px;">Bandcamp →</a>
+                </div>
+                <p style="margin-top: 20px; font-size: 12px; opacity: 0.7;">
+                    <!-- Bandcamp embed will be added here once account access is restored -->
+                </p>
+            </div>
+        </section>
+
+        <section id="store">
+            <h2>/ STORE</h2>
+            
+            <div class="category-filter">
+                <button class="filter-btn active" data-category="all">ALL</button>
+                <button class="filter-btn" data-category="vinyl">VINYL</button>
+                <button class="filter-btn" data-category="cd">CDS</button>
+                <button class="filter-btn" data-category="apparel">APPAREL</button>
+                <button class="filter-btn" data-category="merch">MERCH</button>
+            </div>
+
+            <div class="store-grid">
+                <!-- VINYL PRODUCTS -->
+                <div class="product" data-category="vinyl">
+                    <div class="product-image">PRODUCT IMAGE</div>
+                    <div class="product-name">Album Name - Vinyl</div>
+                    <div class="product-price">$25.00</div>
+                    <button class="product-btn snipcart-add-item"
+                        data-item-id="vinyl-1"
+                        data-item-name="Album Name - Vinyl"
+                        data-item-price="25.00"
+                        data-item-url="/">
+                        ADD TO CART
+                    </button>
+                </div>
+
+                <!-- CD PRODUCTS -->
+                <div class="product" data-category="cd">
+                    <div class="product-image">PRODUCT IMAGE</div>
+                    <div class="product-name">Album Name - CD</div>
+                    <div class="product-price">$12.00</div>
+                    <button class="product-btn snipcart-add-item"
+                        data-item-id="cd-1"
+                        data-item-name="Album Name - CD"
+                        data-item-price="12.00"
+                        data-item-url="/">
+                        ADD TO CART
+                    </button>
+                </div>
+
+                <!-- APPAREL -->
+                <div class="product" data-category="apparel">
+                    <div class="product-image">PRODUCT IMAGE</div>
+                    <div class="product-name">Blue Scholars T-Shirt</div>
+                    <div class="product-price">$28.00</div>
+                    <button class="product-btn snipcart-add-item"
+                        data-item-id="tshirt-1"
+                        data-item-name="Blue Scholars T-Shirt"
+                        data-item-price="28.00"
+                        data-item-url="/">
+                        ADD TO CART
+                    </button>
+                </div>
+
+                <!-- MERCH -->
+                <div class="product" data-category="merch">
+                    <div class="product-image">PRODUCT IMAGE</div>
+                    <div class="product-name">Sticker Pack</div>
+                    <div class="product-price">$5.00</div>
+                    <button class="product-btn snipcart-add-item"
+                        data-item-id="sticker-1"
+                        data-item-name="Sticker Pack"
+                        data-item-price="5.00"
+                        data-item-url="/">
+                        ADD TO CART
+                    </button>
+                </div>
+
+                <div class="product" data-category="merch">
+                    <div class="product-image">PRODUCT IMAGE</div>
+                    <div class="product-name">Poster Set</div>
+                    <div class="product-price">$15.00</div>
+                    <button class="product-btn snipcart-add-item"
+                        data-item-id="poster-1"
+                        data-item-name="Poster Set"
+                        data-item-price="15.00"
+                        data-item-url="/">
+                        ADD TO CART
+                    </button>
+                </div>
+
+                <!-- Add more products as needed -->
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>/ ABOUT</h2>
+            <p>Blue Scholars is a hip hop duo from Seattle, Washington, consisting of DJ Sabzi (Saba Mohajerjasbi) and MC Geologic (George Quibuyen).</p>
+        </section>
+
+        <footer>
+            <p>© 2026 Blue Scholars</p>
+        </footer>
+    </div>
+
+    <script>
+  window.SnipcartSettings = {
+    publicApiKey: "YOUR_API_KEY",
+    loadStrategy: "on-user-interaction",
+  };
+
+  (function(){var c,d;(d=(c=window.SnipcartSettings).version)!=null||(c.version="3.0");var s,S;(S=(s=window.SnipcartSettings).timeoutDuration)!=null||(s.timeoutDuration=2750);var l,p;(p=(l=window.SnipcartSettings).domain)!=null||(l.domain="cdn.snipcart.com");var w,u;(u=(w=window.SnipcartSettings).protocol)!=null||(w.protocol="https");var m,g;(g=(m=window.SnipcartSettings).loadCSS)!=null||(m.loadCSS=!0);var y=window.SnipcartSettings.version.includes("v3.0.0-ci")||window.SnipcartSettings.version!="3.0"&&window.SnipcartSettings.version.localeCompare("3.4.0",void 0,{numeric:!0,sensitivity:"base"})===-1,f=["focus","mouseover","touchmove","scroll","keydown"];window.LoadSnipcart=o;document.readyState==="loading"?document.addEventListener("DOMContentLoaded",r):r();function r(){window.SnipcartSettings.loadStrategy?window.SnipcartSettings.loadStrategy==="on-user-interaction"&&(f.forEach(function(t){return document.addEventListener(t,o)}),setTimeout(o,window.SnipcartSettings.timeoutDuration)):o()}var a=!1;function o(){if(a)return;a=!0;let t=document.getElementsByTagName("head")[0],n=document.querySelector("#snipcart"),i=document.querySelector('src[src^="'.concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,'"][src$="snipcart.js"]')),e=document.querySelector('link[href^="'.concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,'"][href$="snipcart.css"]'));n||(n=document.createElement("div"),n.id="snipcart",n.setAttribute("hidden","true"),document.body.appendChild(n)),h(n),i||(i=document.createElement("script"),i.src="".concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,"/themes/v").concat(window.SnipcartSettings.version,"/default/snipcart.js"),i.async=!0,t.appendChild(i)),!e&&window.SnipcartSettings.loadCSS&&(e=document.createElement("link"),e.rel="stylesheet",e.type="text/css",e.href="".concat(window.SnipcartSettings.protocol,"://").concat(window.SnipcartSettings.domain,"/themes/v").concat(window.SnipcartSettings.version,"/default/snipcart.css"),t.prepend(e)),f.forEach(function(v){return document.removeEventListener(v,o)})}function h(t){!y||(t.dataset.apiKey=window.SnipcartSettings.publicApiKey,window.SnipcartSettings.addProductBehavior&&(t.dataset.configAddProductBehavior=window.SnipcartSettings.addProductBehavior),window.SnipcartSettings.modalStyle&&(t.dataset.configModalStyle=window.SnipcartSettings.modalStyle),window.SnipcartSettings.currency&&(t.dataset.currency=window.SnipcartSettings.currency),window.SnipcartSettings.templatesUrl&&(t.dataset.templatesUrl=window.SnipcartSettings.templatesUrl))}})();
+</script>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Category filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const products = document.querySelectorAll('.product');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // Filter products
+                const category = btn.getAttribute('data-category');
+                products.forEach(product => {
+                    if (category === 'all' || product.getAttribute('data-category') === category) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
