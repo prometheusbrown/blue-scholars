@@ -261,7 +261,7 @@
         </header>
 
         <div class="hero">
-            <img src="images/bs_handstyle _sneke.jpg" alt="Blue Scholars Logo" style="max-width: 500px;">
+            <img src="images/bs_handstyle_sneke.jpg" alt="Blue Scholars Logo" style="max-width: 500px;">
             <div class="hero-text">
                 <p>Seattle hip-hop duo</p>
             </div>
@@ -298,77 +298,10 @@
                 <button class="filter-btn" data-category="merch">MERCH</button>
             </div>
 
-            <div class="store-grid">
-                <!-- VINYL PRODUCTS -->
-                <div class="product" data-category="vinyl">
-                    <div class="product-image">PRODUCT IMAGE</div>
-                    <div class="product-name">Album Name - Vinyl</div>
-                    <div class="product-price">$25.00</div>
-                    <button class="product-btn snipcart-add-item"
-                        data-item-id="vinyl-1"
-                        data-item-name="Album Name - Vinyl"
-                        data-item-price="25.00"
-                        data-item-url="/">
-                        ADD TO CART
-                    </button>
+            <div class="store-grid" id="storeGrid">
+                <div class="loading" style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    Loading products...
                 </div>
-
-                <!-- CD PRODUCTS -->
-                <div class="product" data-category="cd">
-                    <div class="product-image">PRODUCT IMAGE</div>
-                    <div class="product-name">Album Name - CD</div>
-                    <div class="product-price">$12.00</div>
-                    <button class="product-btn snipcart-add-item"
-                        data-item-id="cd-1"
-                        data-item-name="Album Name - CD"
-                        data-item-price="12.00"
-                        data-item-url="/">
-                        ADD TO CART
-                    </button>
-                </div>
-
-                <!-- APPAREL -->
-                <div class="product" data-category="apparel">
-                    <div class="product-image">PRODUCT IMAGE</div>
-                    <div class="product-name">Blue Scholars T-Shirt</div>
-                    <div class="product-price">$28.00</div>
-                    <button class="product-btn snipcart-add-item"
-                        data-item-id="tshirt-1"
-                        data-item-name="Blue Scholars T-Shirt"
-                        data-item-price="28.00"
-                        data-item-url="/">
-                        ADD TO CART
-                    </button>
-                </div>
-
-                <!-- MERCH -->
-                <div class="product" data-category="merch">
-                    <div class="product-image">PRODUCT IMAGE</div>
-                    <div class="product-name">Sticker Pack</div>
-                    <div class="product-price">$5.00</div>
-                    <button class="product-btn snipcart-add-item"
-                        data-item-id="sticker-1"
-                        data-item-name="Sticker Pack"
-                        data-item-price="5.00"
-                        data-item-url="/">
-                        ADD TO CART
-                    </button>
-                </div>
-
-                <div class="product" data-category="merch">
-                    <div class="product-image">PRODUCT IMAGE</div>
-                    <div class="product-name">Poster Set</div>
-                    <div class="product-price">$15.00</div>
-                    <button class="product-btn snipcart-add-item"
-                        data-item-id="poster-1"
-                        data-item-name="Poster Set"
-                        data-item-price="15.00"
-                        data-item-url="/">
-                        ADD TO CART
-                    </button>
-                </div>
-
-                <!-- Add more products as needed -->
             </div>
         </section>
 
@@ -405,27 +338,101 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
-        // Category filter
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const products = document.querySelectorAll('.product');
+        // Load products from storage
+        async function loadProducts() {
+            const storeGrid = document.getElementById('storeGrid');
+            
+            try {
+                const result = await window.storage.list('product:', false);
+                
+                if (!result || !result.keys || result.keys.length === 0) {
+                    storeGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No products available yet. Check back soon!</p>';
+                    return;
+                }
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Update active button
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                // Filter products
-                const category = btn.getAttribute('data-category');
-                products.forEach(product => {
-                    if (category === 'all' || product.getAttribute('data-category') === category) {
-                        product.style.display = 'block';
-                    } else {
-                        product.style.display = 'none';
+                const products = [];
+                for (const key of result.keys) {
+                    try {
+                        const data = await window.storage.get(key, false);
+                        if (data && data.value) {
+                            const product = JSON.parse(data.value);
+                            product.id = key.replace('product:', '');
+                            products.push(product);
+                        }
+                    } catch (err) {
+                        console.error('Error loading product:', key, err);
                     }
+                }
+
+                displayProducts(products);
+                setupFilters(products);
+            } catch (error) {
+                console.error('Error loading products:', error);
+                storeGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">Error loading products. Please refresh.</p>';
+            }
+        }
+
+        function displayProducts(products, filterCategory = 'all') {
+            const storeGrid = document.getElementById('storeGrid');
+            
+            const filteredProducts = filterCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === filterCategory);
+
+            if (filteredProducts.length === 0) {
+                storeGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px;">No products in this category.</p>';
+                return;
+            }
+
+            storeGrid.innerHTML = filteredProducts.map(p => {
+                const imageHtml = p.image 
+                    ? `<img src="${p.image}" style="width: 100%; height: 100%; object-fit: cover;" alt="${p.name}">`
+                    : 'PRODUCT IMAGE';
+                
+                const stockStatus = p.quantity === 0 ? ' (OUT OF STOCK)' : '';
+                
+                return `
+                    <div class="product" data-category="${p.category}">
+                        <div class="product-image">${imageHtml}</div>
+                        <div class="product-name">${p.name}${stockStatus}</div>
+                        <div class="product-price">${parseFloat(p.price).toFixed(2)}</div>
+                        ${p.quantity > 0 ? `
+                            <button class="product-btn snipcart-add-item"
+                                data-item-id="${p.sku}"
+                                data-item-name="${p.name}"
+                                data-item-price="${p.price}"
+                                data-item-description="${p.description || ''}"
+                                data-item-image="${p.image || ''}"
+                                data-item-url="/"
+                                data-item-max-quantity="${p.quantity}">
+                                ADD TO CART
+                            </button>
+                        ` : `
+                            <button class="product-btn" disabled style="opacity: 0.5; cursor: not-allowed;">
+                                OUT OF STOCK
+                            </button>
+                        `}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setupFilters(products) {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const category = btn.getAttribute('data-category');
+                    displayProducts(products, category);
                 });
             });
-        });
+        }
+
+        // Load products on page load
+        loadProducts();
     </script>
 </body>
 </html>
