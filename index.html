@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BLUE SCHOLARS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #000000;
+            --hover: #333333;
+        }
+
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --border: #ffffff;
+            --hover: #cccccc;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: normal;
+            letter-spacing: 2px;
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--hover);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--text);
+            color: var(--bg);
+        }
+
+        .hero {
+            margin-bottom: 60px;
+        }
+
+        .hero img {
+            width: 100%;
+            max-width: 500px;
+            display: block;
+            margin: 0 auto 30px;
+            border: 1px solid var(--border);
+        }
+
+        .hero-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .members {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .members a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+        }
+
+        .members a:hover {
+            border-bottom: 2px solid var(--text);
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        .music-links {
+            border: 1px solid var(--border);
+            padding: 20px;
+        }
+
+        .music-links p {
+            margin-bottom: 15px;
+        }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .link-list a {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
+            transition: border-bottom 0.2s;
+        }
+
+        .link-list a:hover {
+            border-bottom: 2px solid var(--text);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            margin-top: 60px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>BLUE SCHOLARS</h1>
+            <nav>
+                <a href="#music">MUSIC</a>
+                <a href="#about">ABOUT</a>
+                <button class="theme-toggle" onclick="toggleTheme()">◐</button>
+            </nav>
+        </header>
+
+        <div class="hero">
+            <img src="image/bs_handstyle_sneke.jpg" alt="Blue Scholars Logo" style="max-width: 500px;">
+            <div class="hero-text">
+                <p>Seattle hip-hop duo</p>
+            </div>
+            <div class="members">
+                <a href="http://prometheusbrown.wtf" target="_blank">Prometheus Brown fka Geologic</a>
+                <a href="https://sabzi.bandcamp.com" target="_blank">Sabzi</a>
+            </div>
+        </div>
+
+        <section id="music">
+            <h2>/ MUSIC</h2>
+            <div class="music-links">
+                <p>Listen to our music on streaming platforms:</p>
+                <div class="link-list">
+                    <a href="https://open.spotify.com/artist/YOUR_SPOTIFY_ID" target="_blank">Spotify →</a>
+                    <a href="https://music.apple.com/artist/YOUR_APPLE_ID" target="_blank">Apple Music →</a>
+                    <a href="https://www.youtube.com/YOUR_YOUTUBE" target="_blank">YouTube →</a>
+                    <a href="https://bluescholars.bandcamp.com" target="_blank">Bandcamp →</a>
+                </div>
+                <p style="margin-top: 20px; font-size: 12px; opacity: 0.7;">
+                    <!-- Bandcamp embed will be added here once account access is restored -->
+                </p>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>/ ABOUT</h2>
+            <p>Blue Scholars is a hip hop duo from Seattle, Washington, consisting of DJ Sabzi (Saba Mohajerjasbi) and MC Geologic (George Quibuyen).</p>
+        </section>
+
+        <footer>
+            <p>© 2026 Blue Scholars</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+    </script>
+</body>
+</html>
