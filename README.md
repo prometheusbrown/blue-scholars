@@ -1,6 +1,6 @@
 # BLUE SCHOLARS [https://scholars.blue]
 
-A New **Blue Scholars** website. Group active 2002-2016. On musical hiatus since 2013 and performing hiatus since 2016. Lost original domain URL (bluescholars.com, 2002-2021) due to lack of funds and oversight. Currently a legacy group with IP and musical catalog (available for streaming, licensing, and physical copy manufacturing), backstock of old and new merchandise inventory. 
+A New **Blue Scholars** website. Group active 2002-2016. On musical hiatus since 2013 and performing hiatus since 2016. Lost original domain URL (bluescholars.com, 2002-2021) due to lack of funds and oversight. Currently a legacy group with IP and musical catalog (available for streaming, licensing, and physical copy manufacturing), backstock of old and new merchandise inventory, and an absence that is an asset awaiting reasserted authorship. 
 
 ## Primary Objectives:
 * Move current site hosted at <https://bluescholars.squarespace.com> to self-hosted site at <https://bluescholars.netlify.com>.
